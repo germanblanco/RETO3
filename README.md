@@ -4,7 +4,7 @@
 
 Obtener información (resumida) sobre un flujo de datos que supera la capacidad de almacenamiento en disco del sistema.
 
-La información que tenemos de los retos anteriores, parece decir que podemos almacenar varios cientos de líneas por segundo en nuestra base de datos MySQL. En este reto, el objetivo será procesar 5000 HTTP request por segundo y obtener de alguna manera el número de mensajes recibidos por el sistema cada 10 milisegundos, cada segundo y cada minuto. El resultado de esas estadísticas se podrá obtener por consola ejecutando un comando distinto para cada uno de los tres periodos de tiempo.
+La información que tenemos de los retos anteriores, parece decir que podemos almacenar varios cientos de líneas por segundo en nuestra base de datos MySQL. En este reto, el objetivo será procesar 5000 HTTP request por segundo y obtener el número de mensajes recibidos por el sistema cada 10 milisegundos, cada segundo y cada minuto. El resultado de esas estadísticas se podrá obtener por consola ejecutando un comando distinto para cada uno de los tres periodos de tiempo.
 
 ## ¿Cómo hacerlo?
 
@@ -12,11 +12,11 @@ Durante la sesión del 25/05 se discutieron las alternativas de implementación.
 
 ### Procesamiento codificado en el mismo servidor web
 
-Podría plantaerse obtener los resúmenes en el servidor web y almacenarlos. Habría que tener en cuenta que intentar almacenar todos los eventos en un log y después sacar las estadísticas puede no dar el rendimiento requerido (en el momento en el que se pasa la información por disco duro, hay que afinar mucho para llegar a las 5000 TPSs). Se llegará más fácil al objetivo si en el disco duro se almacenan solamente los resúmenes (aunque esto tiene la desventaja de que se pierde información que podría ser útil en el futuro). Eso nos lleva a plantearnos un servidor web más ligero y en el que podamos cacharrear al máximo, por ejemplo los que teníamos implementados en retos anteriores. Con ellos se podría obtener los resúmenes y alcanzar el rendimiento requerido.
+Podría plantaerse obtener los resúmenes en el servidor web y almacenarlos. Habría que tener en cuenta que intentar almacenar todos los eventos en un log y después sacar las estadísticas puede no dar el rendimiento requerido (en el momento en el que se pasa la información por disco duro, hay que afinar mucho para llegar a las 5000 TPSs). Se llegará más fácil al objetivo si en el disco duro se almacenan solamente los resúmenes (aunque esto tiene la desventaja de que se pierde información que podría ser útil en el futuro). Eso nos lleva a plantearnos un servidor web más ligero y en el que podamos cacharrear al máximo, por ejemplo, los que teníamos implementados en retos anteriores. Parece que con ellos se podría obtener los resúmenes y alcanzar el rendimiento requerido.
 
 ### Procesamiento usando Stream Processing
 
-Los motores de Stream Processing (Storm, Flink, Samza, Apama, IBM InfoSphere Streams, ...) sirven para procesar grandes flujos de información con baja latencia. En la sesión se hablo de su funcionamiento basado en ventanas de memoria y flexibilidad en el número de veces que se procesa cada evento. Son una buena herramienta para almacenar solamente un resumen de lo que sucede en tiempo real y descargar así a la capa de almacenamiento, como se requiere en este caso.
+Los motores de Stream Processing (Storm, Flink, Samza, Apama, IBM InfoSphere Streams, ...) sirven para procesar grandes flujos de información con baja latencia. En la sesión se hablo de su funcionamiento basado en ventanas de memoria y flexibilidad en el número de veces que se procesa cada evento. Son una buena herramienta para almacenar solamente un resumen de lo que sucede en tiempo real y descargar así a la capa de almacenamiento, como se requiere en este caso ... aunque su mayor ventaja es la de obtener resultados con muy baja latencia.
 
 ### Cambio de herramienta de almacenamiento
 
@@ -49,21 +49,21 @@ Cada grupo de trabajo creará un repositorio en GitHub con la solución (e.g. de
 
 - El sábado día 28 de Mayo deben estar disponibles los README.md. Eso nos permitirá comentar las soluciones antes de empezar (aunque esperar o considerar los comentarios es opcional) y si es posible repartir las soluciones para que no sean todas iguales. No hace falta explayarse mucho. En cuanto lo vayáis teniendo, anunciarlo en el slack.
 
-- Si puede ser, informad de una versión intermedia, aunque falle, durante la semana que viene.
+- Si puede ser, informad de una versión intermedia, aunque falle o esté incompleta, durante la semana que viene.
 
-- Si puede ser, tened algo que funcione antes del lunes día lunes 6 de Junio. Así podemos echar todos un vistazo a lo que han hecho los demás antes de la sesión siguiente. Además me permitirá instalar las soluciones en un par de máquinas en BlueTab para hacer pruebas.
+- Si puede ser, tened algo que funcione antes del lunes día 6 de Junio. Así podemos echar todos un vistazo a lo que han hecho los demás antes de la sesión siguiente. Además permitirá instalar las soluciones en un par de máquinas en BlueTab para hacer pruebas.
 
 ## Criterios de evaluación
 
 ### Escalabilidad Horizontal
 
-El principal criterio de evaluación va a ser la evaluación de lo preparada que esté la solución para procesar un tráfico aún mayor (20000 HTTP requests, 100000 HTTP requests) si añadimos más servidores al sistema.
+El principal criterio de evaluación va a ser sobre lo preparada que esté la solución para procesar un tráfico aún mayor (20000 HTTP requests, 100000 HTTP requests) si añadimos más servidores al sistema.
 
 ### Flexibilidad de cambio del procesamiento
 
 Evaluación de lo difícil que es cambiar el algoritmo que procesa los datos para implementar otro tipo de informes. Esto incluye el detalle con el que se almacena la información. Es decir, si es posible almacenar todos los eventos en alguna parte, eso da una flexibilidad total de procesar de cualquier manera los eventos en el futuro.
 
-### Performance
+### Rendimiento
 
 Con los siguientes aspectos:
 - HTTP requests que procesa como máximo el sistema
@@ -71,3 +71,5 @@ Con los siguientes aspectos:
 - CPU consumida por el sistema
 - Memoria consumida por el sistema
 - Uso de disco duro
+ 
+## A LA CARGA!!!!
