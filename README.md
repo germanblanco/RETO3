@@ -6,6 +6,8 @@ Obtener información (resumida) sobre un flujo de datos que supera la capacidad 
 
 La información que tenemos de los retos anteriores, parece decir que podemos almacenar varios cientos de líneas por segundo en nuestra base de datos MySQL. En este reto, el objetivo será procesar 5000 HTTP request por segundo y obtener el número de mensajes recibidos por el sistema cada 10 milisegundos, cada segundo y cada minuto. El resultado de esas estadísticas se podrá obtener por consola ejecutando un comando distinto para cada uno de los tres periodos de tiempo.
 
+Cualquier sistema montado con el docker-compose que incluya el tsung generando los 5000 HTTP requests por segundo y los cuatro scripts para sacar las estadisticas por consola es una solucion valida. Para animarnos a usar alguna herramienta de Big Data he puesto lo de los criterios de evaluacion empezando por la escalabilidad, pero tener pensada la escalabilidad no es lo mismo que demostrar que funciona. Si usamos Flink, o Cassandra o alguna herramienta similar damos por sentado que esa parte del sistema sera escalable.
+
 ## ¿Cómo hacerlo?
 
 Durante la sesión del 25/05 se discutieron las alternativas de implementación. Se pasó por los siguientes puntos.
